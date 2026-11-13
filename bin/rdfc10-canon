@@ -1,0 +1,18 @@
+#!/usr/bin/python3 -I
+"""Executable entry point for the canonicalization job.
+
+Runs in isolated mode (``-I``) so no environment site packages or
+working-directory modules (e.g. a planted ``json.py``) can be imported, and
+locates the ``src/`` package relative to this file.
+"""
+
+import os
+import sys
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.abspath(os.path.join(_HERE, "..", "src")))
+
+from rdfc10nq.__main__ import main  # noqa: E402
+
+if __name__ == "__main__":
+    sys.exit(main())

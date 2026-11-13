@@ -1,0 +1,33 @@
+
+5. Serialization
+
+This section describes the process of creating a serialized [N-Quads] representation
+    of a canonicalized dataset.
+
+The serialized canonical form of a canonicalized dataset
+    is an N-Quads document [N-QUADS]
+    created by representing each quad from the canonicalized dataset
+    in canonical n-quads form,
+    sorting them into code point order,
+    and concatenating them. (Note that each canonical N-Quads statement ends with a new line,
+    so no additional separators are needed in the concatenation.)
+    The resulting document has a media type of application/n-quads,
+    as described in C. N-Quads Internet Media Type, File Extension and Macintosh File Type
+    of [N-QUADS].
+
+When serializing quads in canonical n-quads form,
+    components which are blank nodes MUST be serialized using the
+    canonical label associated with each blank node
+    from the issued identifiers map component of the
+    canonicalized dataset.
+
+    Example 8: Canonical N-Quads representation of Unique Hashes
+
+This example illustrates the result of serializing
+      the canonicalized dataset described in Example 2.
+
+<http://example.com/p> <http://example.com/q> _:c14n0 .
+<http://example.com/p> <http://example.com/r> _:c14n1 .
+_:c14n0 <http://example.com/s> <http://example.com/u> .
+_:c14n1 <http://example.com/t> <http://example.com/u> .
+

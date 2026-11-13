@@ -1,0 +1,95 @@
+
+4. Grammar
+
+An N-Quads document is a Unicode[UNICODE] character string encoded in UTF-8.
+          Unicode code points only in the range U+0 to U+10FFFF inclusive are allowed.
+
+White space (tab
+U+0009
+ or space
+U+0020
+) is used to separate two terminals which would otherwise be (mis-)recognized as one terminal. White space is significant in the production STRING_LITERAL_QUOTE.
+
+Comments in N-Quads take the form of '
+#
+', outside an
+IRIREF
+ or
+STRING_LITERAL_QUOTE
+, and continue to the end of line (
+EOL
+) or end of file if there is no end of line after the comment marker. Comments are treated as white space.
+
+The EBNF used here is defined in XML 1.0
+            [EBNF-NOTATION].
+
+Escape sequence rules are the same as Turtle
+          [TURTLE]. However, as only the
+STRING_LITERAL_QUOTE
+ production is allowed new lines in literals MUST be escaped.
+
+    [1]
+
+nquadsDoc
+
+    ::=
+    statement? (EOL statement)
+*
+ EOL?
+
+    [2]
+
+statement
+
+    ::=
+    subject predicate object graphLabel? '
+.
+'
+
+    [3]
+
+subject
+
+    ::=
+    IRIREF
+|
+ BLANK_NODE_LABEL
+
+    [4]
+
+predicate
+
+    ::=
+    IRIREF
+
+    [5]
+
+object
+
+    ::=
+    IRIREF
+|
+ BLANK_NODE_LABEL
+|
+ literal
+
+    [6]
+
+graphLabel
+
+    ::=
+    IRIREF
+|
+ BLANK_NODE_LABEL
+
+    [7]
+
+literal
+
+    ::=
+    STRING_LITERAL_QUOTE ('
+^^
+' IRIREF
+|
+ LANGTAG)?
+
