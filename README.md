@@ -133,10 +133,22 @@ python3 -I tests/diff_rdf_canonize.py 1000   # needs Node + third_party/ref
 test074 is an `RDFC10NegativeEvalTest`: the RDFC-1.0 standard explicitly
 permits implementations to reject it because the unconstrained algorithm is
 factorial in the number of mutually-indistinguishable blank nodes. With
-resource termination disabled (as this task requires), both this
-implementation and `rdf-canonize` exhibit the same intrinsic factorial
-growth (measured ≈10x per added clique node; K8 ≈ 12 s, K9 ≈ 150 s). All
-tractable poison positive tests (test044–046) complete in milliseconds. No
-implementation can make the fully symmetric K10 terminate quickly while
-remaining faithful to the standard's permutation search; the implementation
-is correct and simply unbounded, as specified.
+resource termination disabled (as this task requires), the implementation
+still terminates correctly — it simply takes the algorithm's intrinsic
+factorial time. Measured scaling on the complete symmetric clique K_n is
+roughly 10x per added node:
+
+| n | quads | wall time |
+|---|-------|-----------|
+| K6 | 36 | 0.1 s |
+| K7 | 49 | 0.9 s |
+| K8 | 64 | ~11 s |
+| K9 | 81 | ~153 s |
+| K10 (test074) | 100 | ~3438 s (~57 min), completes with 100 canonical statements |
+
+`rdf-canonize` exhibits the same factorial growth when its own limits are
+disabled, confirming this is a property of the standard's permutation search
+rather than of this implementation. All tractable poison positive tests
+(test044–046) complete in milliseconds. No implementation can make the fully
+symmetric K10 terminate quickly while remaining faithful to the standard;
+this implementation is correct and simply unbounded, as specified.
